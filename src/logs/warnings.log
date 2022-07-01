@@ -1,0 +1,7 @@
+[2022-06-20T16:46:31.977] [WARN] loggerWarning - Hola WARNING
+[2022-06-20T16:50:23.109] [WARN] loggerWarning - GET /info/asdasd not implemented
+[2022-06-20T16:52:25.613] [WARN] loggerWarning - GET /style.css not implemented
+[2022-06-30T21:15:44.818] [WARN] loggerWarning - GET /js/login.js not implemented
+[2022-06-30T21:15:44.928] [WARN] loggerWarning - GET /favicon.ico not implemented
+[2022-06-30T21:29:21.793] [WARN] loggerWarning - GET /js/login.js not implemented
+[2022-06-30T21:29:21.916] [WARN] loggerWarning - GET /favicon.ico not implemented
