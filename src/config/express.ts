@@ -59,18 +59,16 @@ app.use(
 
    app.use(router);
 
-   app.get('/health', (_req, res) => {
-      res.send('Running');
-   });
+
 
    app.all('*',(req: Request,res: Response) => {
-      loggerWarning.warn(`${req.method } ${req.url} not implemented`);
+      loggerWarning.warn(`${req.method } ${req.url} redirigir a otra pagina`);
       res.status(404).send('404 Not Found')
    })
 
    app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
       console.log(err);
-      res.status(500).json({ err, message: 'Something went wrong, sorry' });
+      res.status(500).json({ err, message: 'error' });
    });
 
    return app;
