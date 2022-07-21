@@ -30,11 +30,7 @@ router.get('/register',AuthController.renderRegister);
 
 router.post('/register', AuthController.register)
 
-
-
-
 router.post('/login', passport.authenticate('local', { session: true }), AuthController.login);
-
 
 
 router.get('/logout', AuthController.logout);

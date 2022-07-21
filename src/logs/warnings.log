@@ -126,3 +126,9 @@
 [2022-07-07T23:07:04.635] [WARN] loggerWarning - GET /www.phone.com redirigir a otra pagina
 [2022-07-11T21:59:35.598] [WARN] loggerWarning - GET /favicon.ico redirigir a otra pagina
 [2022-07-11T21:59:39.709] [WARN] loggerWarning - GET /asdasd redirigir a otra pagina
+[2022-07-19T02:50:05.769] [WARN] loggerWarning - GET /js/login.js redirigir a otra pagina
+[2022-07-19T02:50:05.920] [WARN] loggerWarning - GET /favicon.ico redirigir a otra pagina
+[2022-07-19T03:04:02.804] [WARN] loggerWarning - GET /js/login.js redirigir a otra pagina
+[2022-07-19T03:04:16.225] [WARN] loggerWarning - GET /js/login.js redirigir a otra pagina
+[2022-07-19T03:04:22.210] [WARN] loggerWarning - GET /productos redirigir a otra pagina
+[2022-07-19T03:04:25.804] [WARN] loggerWarning - GET /js/login.js redirigir a otra pagina
