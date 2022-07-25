@@ -1,31 +1,44 @@
-import { ProductModel as ProductModel } from "../models";
-
+import { ProductModel } from '../models';
 
 interface IProduct {
-   title: string;
-   price: number;
-   thumbnail: string;
-   id: string;
+  title: string;
+  price: number;
+  thumbnail: string;
+  id: string;
 }
 
 export class Product {
-   static async create(data: IProduct) {
-      return ProductModel.create(data)
-   }
+  private static _instance: Product;
 
-   static async getAll() {
-      return ProductModel.find()
-   }
+  static getInstance() {
+    if (!this._instance) {
+      this._instance = new Product();
+    }
+    return this._instance;
+  }
 
-   static async getById(id: string) {
-      return ProductModel.findById(id)
-   }
+  public uid: string;
+  private constructor() {
+    this.uid = (Math.random() * 100).toString(36);
+  }
 
-   static async update(id: string, data: IProduct) {
-      return ProductModel.findByIdAndUpdate(id, data, { new: true })
-   }
+  async create(data: IProduct) {
+    return ProductModel.create(data);
+  }
 
-   static async delete(id: string) { 
-      return ProductModel.findByIdAndDelete(id)
-   }
+  async getAll() {
+    return ProductModel.find();
+  }
+
+  async getById(id: string) {
+    return ProductModel.findById(id);
+  }
+
+  async update(id: string, data: IProduct) {
+    return ProductModel.findByIdAndUpdate(id, data, { new: true });
+  }
+
+  async delete(id: string) {
+    return ProductModel.findByIdAndDelete(id);
+  }
 }

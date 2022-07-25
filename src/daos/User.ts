@@ -1,35 +1,47 @@
-import { UserModel as UserModel } from "../models";
-
+import { UserModel } from '../models';
 
 export interface IUser {
-   id?: string;
-   email: string;
-   password: string;
+  id?: string;
+  email: string;
+  password: string;
 }
 
 export class User {
-   static async create(data: IUser) {
-      return UserModel.create(data)
-   }
+  private static _instance: User;
 
+  static getInstance() {
+    if (!this._instance) {
+      this._instance = new User();
+    }
+    return this._instance;
+  }
 
-   static async getAll() {
-      return UserModel.find()
-   }
+  public uid: string;
+  private constructor() {
+    this.uid = (Math.random() * 100).toString(36);
+  }
 
-   static async getById(id: string) {
-      return UserModel.findById(id)
-   }
+  async create(data: IUser) {
+    return UserModel.create(data);
+  }
 
-   static async getByEmail(email: string) {
-      return UserModel.findOne({ email})
-   }
+  async getAll() {
+    return UserModel.find();
+  }
 
-   static async update(id: string, data: IUser) {
-      return UserModel.findByIdAndUpdate(id, data, { new: true })
-   }
+  async getById(id: string) {
+    return UserModel.findById(id);
+  }
 
-   static async delete(id: string) { 
-      return UserModel.findByIdAndDelete(id)
-   }
+  async getByEmail(email: string) {
+    return UserModel.findOne({ email });
+  }
+
+  async update(id: string, data: IUser) {
+    return UserModel.findByIdAndUpdate(id, data, { new: true });
+  }
+
+  async delete(id: string) {
+    return UserModel.findByIdAndDelete(id);
+  }
 }

@@ -6,7 +6,7 @@ import { createApp } from './config/express';
 import { connectDb } from './config/db';
 import cluster from 'cluster'
 import { cpus } from 'os'
-import { Message, Product } from './daos';
+import { Message, Product,FactoryMethod } from './daos';
 import './middlewares/passport'
 
 
