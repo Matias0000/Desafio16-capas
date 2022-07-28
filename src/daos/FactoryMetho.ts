@@ -6,7 +6,7 @@ import { User } from './User';
 export  class FactoryMethod {
     static getDao<T extends EntityType>(
       entity: T,
-      db: 'mongo' | 'firebase' | string = 'mongo'
+      db: 'mongo'  | string = 'mongo'
     ): Return<T> {
       switch (db) {
         case 'mongo': {
@@ -14,23 +14,12 @@ export  class FactoryMethod {
             case 'user':
               return User.getInstance() as Return<T>;
             case 'message':
-              return Message.getInstance() as Return<T>;
+              // return Message.getInstance() as Return<T>;
             case 'product':
-              return Product.getInstance() as Return<T>;
+              // return Product.getInstance() as Return<T>;
             default:
-              throw new Error('No se especifico que entidad utilizar para el DAO');
-          }
-        }
-        case 'firebase': {
-          switch (entity) {
-            case 'user':
               return User.getInstance() as Return<T>;
-            case 'message':
-              return Message.getInstance() as Return<T>;
-            case 'product':
-              return Product.getInstance() as Return<T>;
-            default:
-              throw new Error('No se especifico que entidad utilizar para el DAO');
+              // throw new Error('No se especifico que entidad utilizar para el DAO');
           }
         }
       }
@@ -40,8 +29,8 @@ export  class FactoryMethod {
   type EntityType = 'user' | 'message' | 'product';
   type Return<T> = T extends 'user'
     ? User
-    : T extends 'message'
-    ? Message
-    : T extends 'product'
-    ? Product
+    // : T extends 'message'
+    // ? Message
+    // : T extends 'product'
+    // ? Product
     : null;

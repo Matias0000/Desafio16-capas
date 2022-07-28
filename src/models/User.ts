@@ -10,8 +10,7 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true,
 
-   },
-   
+   }
 })
 
 export const UserModel = mongoose.model('User', UserSchema);

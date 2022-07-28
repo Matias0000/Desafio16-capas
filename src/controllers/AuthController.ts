@@ -1,72 +1,63 @@
-import { Request, Response } from "express";
-import { Message, Product, User } from "../daos";
-import bcrypt from 'bcrypt'
+import { Request, Response } from 'express';
+import { DaoFactory, Message, Product, User } from '../daos';
+import bcrypt from 'bcrypt';
 
 export class AuthController {
+  static userDao = DaoFactory.getDao('user');
+  static messageDao = DaoFactory.getDao('message');
+  static productDao = DaoFactory.getDao('product');
 
-   static async main(req: Request, res: Response) {
-      if (!req.user) {
-         return res.redirect('/login');
+
+  static async renderLogin(req: Request, res: Response) {
+    res.render('login', { title: 'Login' });
+  }
+
+  static async renderRegister(req: Request, res: Response) {
+    res.render('register', { title: 'Login' });
+  }
+
+  static async register(req: Request, res: Response) {
+    try {
+      if (!req.body.email || !req.body.password) {
+        return res.json({
+          error: true,
+          message: 'Missing information',
+        });
       }
 
-      const productos = await Product.getAll();
+      const user = await this.userDao.getByEmail(req.body.email);
 
-      let messages = await Message.getAll();
+      if (user) return res.json({ error: true, message: 'Email ya registrado' });
 
-      res.render('main', { title: 'Productos', productos, messages });
-   }
+      const hashedPw = await bcrypt.hash(req.body.password, 10);
 
-   static async renderLogin(req: Request, res: Response) {
-      res.render('login', { title: 'Login' });
-   }
-
-   static async renderRegister(req: Request, res: Response) {
-      res.render('register', { title: 'Login' });
-   }
-
-   static async register(req: Request, res: Response) {
-      try {
-         if (!req.body.email || !req.body.password) {
-            return res.json({
-               error: true,
-               message: "Missing information"
-            })
-         }
-
-         const user = await User.getByEmail(req.body.email);
-
-         if (user) return res.json({ error: true, message: 'Email ya registrado' })
-
-         const hashedPw = await bcrypt.hash(req.body.password, 10);
-
-         await User.create({
-            email: req.body.email,
-            password: hashedPw
-         })
-
-         res.json({
-            error: false,
-            message: 'Usuario creado correctamente'
-         })
-
-      } catch (err) {
-         console.log(err);
-         return res.json({ error: err })
-      }
-   }
-
-   static async login(req: Request, res: Response) {
-      return res.json({
-         redirect: '/',
+      await this.userDao.create({
+        email: req.body.email,
+        password: hashedPw,
       });
-   }
 
-   static async logout(req: Request, res: Response) {
-      if (!req.user) return res.redirect('/login');
-      const email = (req.user as any).email
-      req.logout((err) => {
-         if (err) return
-         return res.render('logout', { title: 'Logout', name: email });
-      })
-   }
+      res.json({
+        error: false,
+        message: 'Usuario creado correctamente',
+      });
+    } catch (err) {
+      console.log(err);
+      return res.json({ error: err });
+    }
+  }
+
+  static async login(req: Request, res: Response) {
+    return res.json({
+      redirect: '/',
+    });
+  }
+
+  static async logout(req: Request, res: Response) {
+    if (!req.user) return res.redirect('/login');
+    const email = (req.user as any).email;
+    req.logout((err) => {
+      if (err) return;
+      return res.render('logout', { title: 'Logout', name: email });
+    });
+  }
 }
